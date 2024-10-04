@@ -1,0 +1,32 @@
+@colorPrincipal: red;
+@colorPrincipal2: purple;
+@colors: green, blue,yellow,orange,violet;
+
+body{
+    background-color:  @colorPrincipal2
+}
+
+legend{
+    color:@colorPrincipal
+}
+
+button{
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+
+
+.colorLista(@contador) when (@contador <= 5){
+    .colorLista((@contador + 1));
+    li:nth-child(@{contador}){
+        background-color: extract(@colors,@contador);
+        border-color: black;
+        border-radius: 3px;
+        border-style: dotted;
+    }
+
+}
+
+ul{
+    .colorLista(0);
+}
+

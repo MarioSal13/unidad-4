@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Acceso</title>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+    <div class="login-form">
+        <fieldset>
+            <legend>Formulario de acceso</legend>
+            <fieldset>
+                <legend>Correo</legend>
+                <input type="email" id="email" placeholder="Ingrese su correo electrónico" required>
+            </fieldset>
+
+            <fieldset>
+                <legend>Contraseña</legend>
+                <input type="password" id="password" placeholder="Ingrese su contraseña" required>
+            </fieldset>
+
+            <ul>
+                <li><input type="checkbox"> Administrador</li>
+                <li><input type="checkbox"> Gerente</li>
+                <li><input type="checkbox"> Propietario</li>
+                <li><input type="checkbox"> Agente de ventas</li>
+                <li><input type="checkbox"> Prospecto</li>
+            </ul>
+
+            <button type="submit">Acceder</button>
+        </fieldset>
+
+        <div class="forgot-password">
+            <a href="#">¿Olvidó su contraseña?</a>
+        </div>
+    </div>
+</body>
+</html>
