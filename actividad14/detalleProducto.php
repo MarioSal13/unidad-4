@@ -2,11 +2,20 @@
     session_start();
 
     if(!isset($_SESSION['data'])){
-        header("location: ../Actividad14/login.php");
+        header("location: ../Actividad14/login.php"); 
     }
 
+    if (isset($_SESSION['producto'])) {
+        $producto = $_SESSION['producto'];
+        $imageUrl = $producto['cover'];
+        $price = isset($producto['presentations'][0]['price'][0]['amount']) ? $producto['presentations'][0]['price'][0]['amount'] : 0;
+        $brandName = isset($producto['brand']['name']) ? $producto['brand']['name'] : 'Sin Marca';
+        $brandDescription = isset($producto['brand']['description']) ? $producto['brand']['description'] : 'Descripción no disponible';
+    } else {
+        echo "No se encontraron datos del producto.";
+        exit;
+    }
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -41,7 +50,6 @@
                 <img src="/Actividad14/img/Bootstrap_logo.svg.png" class="rounded-circle me-2 " alt="User Image">
                 <span>mdo</span>
             </div>
-
         </div>
 
         <div class="flex-grow-1">
@@ -88,78 +96,86 @@
                 <h1>Detalle del producto</h1>
 
                 <div class="card m-3">
-                    <h5 class="card-header">Featured</h5>
+                    <h5 class="card-header"><?= htmlspecialchars($producto['features']); ?></h5>
                     <div class="row p-3">
 
                         <div class="col-4">
                             <div id="carouselExampleControlsNoTouching" class="carousel slide" data-bs-touch="false">
                                 <div class="carousel-inner">
-                                  <div class="carousel-item active">
-                                    <img src="https://www.gravatar.com/avatar/EMAIL_MD5?d=https%3A%2F%2Fui-avatars.com%2Fapi%2F/Lasse+Rafn/128" class="d-block w-100" alt="...">
-                                  </div>
-                                  <div class="carousel-item">
-                                    <img src="https://www.gravatar.com/avatar/EMAIL_MD5?d=https%3A%2F%2Fui-avatars.com%2Fapi%2F/Lasse+Rafn/128" class="d-block w-100" alt="...">
-                                  </div>
-                                  <div class="carousel-item">
-                                    <img src="https://www.gravatar.com/avatar/EMAIL_MD5?d=https%3A%2F%2Fui-avatars.com%2Fapi%2F/Lasse+Rafn/128" class="d-block w-100" alt="...">
-                                  </div>
+                                    <div class="carousel-item active">
+                                        <img src="<?php echo htmlspecialchars($imageUrl); ?>" class="d-block w-100" alt="<?php echo htmlspecialchars($producto['name']); ?>">
+                                    </div>
                                 </div>
                                 <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="prev">
-                                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                  <span class="visually-hidden">Previous</span>
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Previous</span>
                                 </button>
                                 <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="next">
-                                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                  <span class="visually-hidden">Next</span>
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Next</span>
                                 </button>
-                              </div>
+                            </div>
                         </div>
 
                         <div class="col">
                             <div class="card-body">
-                                <h5 class="card-title">Special title treatment</h5>
-                                <h3>$100 MXM</h3>
-                                <p class="card-text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officia doloremque, pariatur magnam modi omnis blanditiis, velit enim esse, dicta quod alias autem non voluptatibus rem error facere cum. Officia, sapiente!</p>
-                                <a class="btn btn-primary"  href="">Go somewhere</a>
+                                <h5 class="card-title"><?= htmlspecialchars($producto['name']); ?></h5>
+                                <p>Precio: $<?php echo number_format($price, 2); ?></p>
+                                <p class="card-text"><?= htmlspecialchars($producto['description']); ?></p>
+                                <div class="brand-info">
+                                    <h4>Marca: <?php echo htmlspecialchars($brandName); ?></h4>
+                                    <p><?php echo htmlspecialchars($brandDescription); ?></p>
+                                </div>
+
+                                <!-- Sección de etiquetas -->
+                                <div class="tags">
+                                    <h5>Etiquetas:</h5>
+                                    <ul class="list-unstyled">
+                                        <?php foreach ($producto['tags'] as $tag): ?>
+                                            <li><?php echo htmlspecialchars($tag['name']); ?></li>
+                                        <?php endforeach; ?>
+                                    </ul>
+                                </div>
+
+                                <a class="btn btn-primary" href="link-to-product-action.php?id=<?= htmlspecialchars($producto['id']); ?>">Go somewhere</a>
                             </div>
                         </div>
 
                     </div>
+                </div>
 
-
-                  </div>
-                  <div class="card p-2 m-3">
+                <div class="card p-2 m-3">
                     <h3>Historias de busqueda</h3>
                     <table class="table">
                         <thead>
-                          <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">First</th>
-                            <th scope="col">Last</th>
-                            <th scope="col">Handle</th>
-                          </tr>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">First</th>
+                                <th scope="col">Last</th>
+                                <th scope="col">Handle</th>
+                            </tr>
                         </thead>
                         <tbody>
-                          <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                          </tr>
-                          <tr>
-                            <th scope="row">2</th>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                          </tr>
-                          <tr>
-                            <th scope="row">3</th>
-                            <td colspan="2">Larry the Bird</td>
-                            <td>@twitter</td>
-                          </tr>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>Mark</td>
+                                <td>Otto</td>
+                                <td>@mdo</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">2</th>
+                                <td>Jacob</td>
+                                <td>Thornton</td>
+                                <td>@fat</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">3</th>
+                                <td colspan="2">Larry the Bird</td>
+                                <td>@twitter</td>
+                            </tr>
                         </tbody>
-                      </table>
-                  </div>
+                    </table>
+                </div>
 
             </div>
         </div>

@@ -94,7 +94,7 @@
                         <div class="card-body">
                             <h5 class="card-title"><?php echo $tarjeta['name']; ?></h5>
                             <p class="card-text"><?php echo $tarjeta['description']; ?></p>
-                            <a href="/unidad-4/actividad14/detalleProducto.php" class="btn btn-primary">Go somewhere</a>
+                            <a href="/unidad-4/actividad14/getProductSlug.php?slug=<?php echo $tarjeta['slug']; ?>" class="btn btn-primary">Go somewhere</a>
                         </div>
                         </div>
                     <?php endforeach; ?>
