@@ -3,7 +3,7 @@
     session_start();
 
     if(isset($_SESSION['data'])){
-        header("location: ../Actividad6/index.php");
+        header("location: ../Actividad13/index.php");
     }
 
 ?>

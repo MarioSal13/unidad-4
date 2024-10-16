@@ -2,7 +2,7 @@
     session_start();
 
     if(!isset($_SESSION['data'])){
-        header("location: ../Actividad6/login.php");
+        header("location: ../Actividad13/login.php");
     }
 
 ?>
@@ -77,7 +77,7 @@
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
                                 <li><a class="dropdown-item" >Profile</a></li>
                                 <li><a class="dropdown-item" >Settings</a></li>
-                                <li><a class="dropdown-item" href="../Actividad6/logOut.php">Logout</a></li>
+                                <li><a class="dropdown-item" href="../Actividad13/logOut.php">Logout</a></li>
                             </ul>
                         </div>
                     </div>
