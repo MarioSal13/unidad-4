@@ -13,7 +13,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bootstrap Layout with Modals</title>
+    <title>Index</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
@@ -104,19 +104,31 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modalAgregarLabel">Añadir Producto</h5>
+                    <h5 class="modal-title" id="modalAgregarLabel">Nuevo Producto</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="formAgregar" method="POST" action="/ruta_para_agregar.php">
+                    <form id="formAgregar" method="POST" action="addProduct.php">
                         <div class="mb-3">
                             <label for="name" class="form-label">Nombre del Producto</label>
-                            <input type="text" class="form-control" id="name" name="name" required>
+                            <input type="text" class="form-control" id="nameProduct" name="nameProduct" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Slug</label>
+                            <input type="text" class="form-control" id="Slug" name="Slug" required>
                         </div>
                         <div class="mb-3">
                             <label for="description" class="form-label">Descripción</label>
                             <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
                         </div>
+
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Features</label>
+                            <input type="text" class="form-control" id="feature" name="feature" required>
+                        </div>
+
+                        <input type="hidden" name="action" value="action">
+
                         <button type="submit" class="btn btn-primary">Guardar</button>
                     </form>
                 </div>
