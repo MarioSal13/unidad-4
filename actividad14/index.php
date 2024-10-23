@@ -1,11 +1,11 @@
 <?php
     session_start();
 
-    if(!isset($_SESSION['data'])){
+    if (!isset($_SESSION['data'])) {
         header("location: ../Actividad14/login.php");
     }
 
-    include ("getProductos.php");
+    include("getProductos.php");
 ?>
 
 <!DOCTYPE html>
@@ -18,7 +18,6 @@
 </head>
 <body>
     <div class="d-flex">
-        <!-- Sidebar -->
         <div class="bg-dark text-white vh-100 p-3 d-none d-md-block position-fixed" style="width: 250px;">
             <h5>Sidebar</h5>
             <ul class="nav flex-column">
@@ -39,10 +38,7 @@
                 </li>
             </ul>
         </div>
-
-        <!-- Main Content -->
         <div class="flex-grow-1" style="margin-left: 250px;">
-            <!-- Navbar -->
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                 <div class="container-fluid">
                     <a class="navbar-brand">Navbar scroll</a>
@@ -62,11 +58,20 @@
                             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                             <button class="btn btn-success" type="submit">Search</button>
                         </form>
+
+                        <div class="dropdown ms-3">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                mdo
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+                                <li><a class="dropdown-item">Profile</a></li>
+                                <li><a class="dropdown-item">Settings</a></li>
+                                <li><a class="dropdown-item" href="../Actividad14/logOut.php">Logout</a></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </nav>
-
-            <!-- Botón Añadir -->
             <div class="container mt-3 d-flex justify-content-end">
                 <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalAgregar">Añadir</button>
             </div>
@@ -83,12 +88,18 @@
                                 <p class="card-text"><?php echo $tarjeta['description']; ?></p>
                                 <a href="/unidad-4/actividad14/getProductSlug.php?slug=<?php echo $tarjeta['slug']; ?>" class="btn btn-primary mb-2">Go somewhere</a>
                                 <div class="d-flex justify-content-between">
-
-                                    <!-- Botón para abrir el modal de editar -->
-                                    <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalEditar">
+                                    <button 
+                                        class="btn btn-warning btn-editar"
+                                        data-id="<?php echo $tarjeta['id']; ?>"
+                                        data-name="<?php echo $tarjeta['name']; ?>"
+                                        data-slug="<?php echo $tarjeta['slug']; ?>"
+                                        data-description="<?php echo $tarjeta['description']; ?>"
+                                        data-feature="<?php echo isset($tarjeta['features']) ? $tarjeta['features'] : ''; ?>"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#modalEditar">
                                         Editar
                                     </button>
-                                    <!-- boton para eleminar un producto -->
+
                                     <a href="/ruta_para_eliminar.php?id=<?php echo $tarjeta['id']; ?>" class="btn btn-danger">Eliminar</a>
                                 </div>
                             </div>
@@ -108,27 +119,25 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="formAgregar" method="POST" action="addProduct.php">
+                    <form id="formAgregar" method="POST" action="productController.php">
                         <div class="mb-3">
-                            <label for="name" class="form-label">Nombre del Producto</label>
+                            <label for="nameProduct" class="form-label">Nombre del Producto</label>
                             <input type="text" class="form-control" id="nameProduct" name="nameProduct" required>
                         </div>
                         <div class="mb-3">
-                            <label for="name" class="form-label">Slug</label>
+                            <label for="Slug" class="form-label">Slug</label>
                             <input type="text" class="form-control" id="Slug" name="Slug" required>
                         </div>
                         <div class="mb-3">
                             <label for="description" class="form-label">Descripción</label>
                             <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
                         </div>
-
                         <div class="mb-3">
-                            <label for="name" class="form-label">Features</label>
+                            <label for="feature" class="form-label">Features</label>
                             <input type="text" class="form-control" id="feature" name="feature" required>
                         </div>
 
-                        <input type="hidden" name="action" value="action">
-
+                        <input type="hidden" name="action" value="add">
                         <button type="submit" class="btn btn-primary">Guardar</button>
                     </form>
                 </div>
@@ -145,16 +154,27 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="formEditar" method="POST" action="/ruta_para_editar.php">
-                        <input type="hidden" id="editId" name="id">
+                    <form id="formEditar" method="POST" action="productController.php">
                         <div class="mb-3">
-                            <label for="editName" class="form-label">Nombre del Producto</label>
-                            <input type="text" class="form-control" id="editName" name="name" required>
+                            <label for="nameEditar" class="form-label">Nombre del Producto</label>
+                            <input type="text" class="form-control" id="nameEditar" name="nameEditar" required>
                         </div>
                         <div class="mb-3">
-                            <label for="editDescription" class="form-label">Descripción</label>
-                            <textarea class="form-control" id="editDescription" name="description" rows="3" required></textarea>
+                            <label for="slugEditar" class="form-label">Slug</label>
+                            <input type="text" class="form-control" id="slugEditar" name="slugEditar" required>
                         </div>
+                        <div class="mb-3">
+                            <label for="descriptionEditar" class="form-label">Descripción</label>
+                            <textarea class="form-control" id="descriptionEditar" name="descriptionEditar" rows="3" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="featureEditar" class="form-label">Features</label>
+                            <input type="text" class="form-control" id="featureEditar" name="featureEditar" required>
+                        </div>
+
+                        <input type="hidden" id="productId" name="productId">
+                        <input type="hidden" name="action" value="update">
+
                         <button type="submit" class="btn btn-primary">Actualizar</button>
                     </form>
                 </div>
@@ -162,7 +182,30 @@
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const btnsEditar = document.querySelectorAll('.btn-editar');
 
+            btnsEditar.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const id = btn.getAttribute('data-id');
+                    const name = btn.getAttribute('data-name');
+                    const slug = btn.getAttribute('data-slug');
+                    const description = btn.getAttribute('data-description');
+                    const feature = btn.getAttribute('data-feature');
+
+                    console.log({ id, name, slug, description, feature });
+
+                    document.getElementById('productId').value = id;
+                    document.getElementById('nameEditar').value = name;
+                    document.getElementById('slugEditar').value = slug;
+                    document.getElementById('descriptionEditar').value = description;
+                    document.getElementById('featureEditar').value = feature;
+                });
+            });
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
