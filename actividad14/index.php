@@ -17,6 +17,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
     <div class="d-flex">
         <div class="bg-dark text-white vh-100 p-3 d-none d-md-block position-fixed" style="width: 250px;">
             <h5>Sidebar</h5>
@@ -88,7 +91,7 @@
                                 <p class="card-text"><?php echo $tarjeta['description']; ?></p>
                                 <a href="/unidad-4/actividad14/getProductSlug.php?slug=<?php echo $tarjeta['slug']; ?>" class="btn btn-primary mb-2">Go somewhere</a>
                                 <div class="d-flex justify-content-between">
-                                    <button 
+                                    <button
                                         class="btn btn-warning btn-editar"
                                         data-id="<?php echo $tarjeta['id']; ?>"
                                         data-name="<?php echo $tarjeta['name']; ?>"
@@ -100,7 +103,12 @@
                                         Editar
                                     </button>
 
-                                    <a href="/ruta_para_eliminar.php?id=<?php echo $tarjeta['id']; ?>" class="btn btn-danger">Eliminar</a>
+                                    <button
+                                        onclick="eliminar(<?php echo $tarjeta['id']; ?>)"
+                                        class="btn btn-danger">
+                                        Eliminar
+                                    </button>
+
                                 </div>
                             </div>
                         </div>
@@ -182,6 +190,22 @@
         </div>
     </div>
 
+        <!-- Modal para eliminar Producto -->
+        <div class="modal fade" id="modalAgregar" tabindex="-1" aria-labelledby="modalAgregarLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <form id="formEliminar" method="POST" action="productController.php">
+
+                        <input type="hidden" id="eliminarProductId" name="eliminarProductId">
+                        <input type="hidden" name="action" value="delete">
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const btnsEditar = document.querySelectorAll('.btn-editar');
@@ -194,7 +218,6 @@
                     const description = btn.getAttribute('data-description');
                     const feature = btn.getAttribute('data-feature');
 
-                    console.log({ id, name, slug, description, feature });
 
                     document.getElementById('productId').value = id;
                     document.getElementById('nameEditar').value = name;
@@ -204,6 +227,30 @@
                 });
             });
         });
+    </script>
+
+    <script>
+
+        function eliminar(id){
+            swal({
+                title: "Are you sure?",
+                text: "Once deleted, you will not be able to recover this imaginary file!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+                })
+                .then((willDelete) => {
+                if (willDelete) {
+                    
+                    document.getElementById('eliminarProductId').value = id;
+                    document.getElementById('formEliminar').submit();
+
+                    swal("Poof! Your imaginary file has been deleted!", {
+                    icon: "success",
+                    });
+                }
+                });
+        }
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>

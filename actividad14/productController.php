@@ -30,6 +30,15 @@
 
                 break;
 
+            case 'delete':
+                $productController = new ProductController();
+
+                $productId=$_POST['eliminarProductId'];
+
+                $productController->eliminarProducto($productId);
+
+                break;
+
             default:
                 echo "esta mal XD";
                 break;
@@ -113,6 +122,42 @@
             ));
 
             $response = curl_exec($curl);
+            curl_close($curl);
+
+            if(isset($response)){
+                header("location: index.php?status=ok");
+            }else{
+                header("location: index.php?status=error");
+            }
+        }
+
+        function eliminarProducto($productId){
+
+            if (isset($_SESSION['data'])) {
+                $data = $_SESSION['data'];
+            } else {
+                echo "No se ha iniciado sesión o no hay datos disponibles.";
+                exit;
+            }
+
+            $curl = curl_init();
+
+            curl_setopt_array($curl, array(
+            CURLOPT_URL => 'https://crud.jonathansoto.mx/api/products/'.$productId,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'DELETE',
+            CURLOPT_HTTPHEADER => array(
+                'Authorization: Bearer ' . $data['token']
+            ),
+            ));
+
+            $response = curl_exec($curl);
+
             curl_close($curl);
 
             if(isset($response)){
