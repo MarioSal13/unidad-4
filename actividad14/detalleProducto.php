@@ -1,8 +1,9 @@
 <?php
     session_start();
 
-    if(!isset($_SESSION['data'])){
+    if (!isset($_SESSION['data'])) {
         header("location: ../Actividad14/login.php"); 
+        exit;
     }
 
     if (isset($_SESSION['producto'])) {
@@ -34,20 +35,20 @@
                     <a class="nav-link active text-white" href="/Actividad6/index.html">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" >Dashboard</a>
+                    <a class="nav-link text-white">Dashboard</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" >Orders</a>
+                    <a class="nav-link text-white">Orders</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-white">Products</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" >Customers</a>
+                    <a class="nav-link text-white">Customers</a>
                 </li>
             </ul>
             <div class="position-absolute bottom-0 p-3">
-                <img src="/Actividad14/img/Bootstrap_logo.svg.png" class="rounded-circle me-2 " alt="User Image">
+                <img src="/Actividad14/img/Bootstrap_logo.svg.png" class="rounded-circle me-2" alt="User Image">
                 <span>mdo</span>
             </div>
         </div>
@@ -62,13 +63,13 @@
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" >Home</a>
+                                <a class="nav-link active" aria-current="page">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" >Ejemplo</a>
+                                <a class="nav-link">Ejemplo</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" >Ejemplo</a>
+                                <a class="nav-link">Ejemplo</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link disabled">Ejemplo</a>
@@ -83,8 +84,8 @@
                                 mdo
                             </button>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
-                                <li><a class="dropdown-item" >Profile</a></li>
-                                <li><a class="dropdown-item" >Settings</a></li>
+                                <li><a class="dropdown-item">Profile</a></li>
+                                <li><a class="dropdown-item">Settings</a></li>
                                 <li><a class="dropdown-item" href="../Actividad14/logOut.php">Logout</a></li>
                             </ul>
                         </div>
@@ -122,13 +123,14 @@
                                 <h5 class="card-title"><?= htmlspecialchars($producto['name']); ?></h5>
                                 <p>Precio: $<?php echo number_format($price, 2); ?></p>
                                 <p class="card-text"><?= htmlspecialchars($producto['description']); ?></p>
-                                <div class="brand-info">
+                                <!-- Brand Info -->
+                                <div class="brand-info mt-3">
                                     <h4>Marca: <?php echo htmlspecialchars($brandName); ?></h4>
                                     <p><?php echo htmlspecialchars($brandDescription); ?></p>
                                 </div>
 
                                 <!-- Sección de etiquetas -->
-                                <div class="tags">
+                                <div class="tags mt-3">
                                     <h5>Etiquetas:</h5>
                                     <ul class="list-unstyled">
                                         <?php foreach ($producto['tags'] as $tag): ?>
@@ -137,44 +139,11 @@
                                     </ul>
                                 </div>
 
-                                <a class="btn btn-primary" href="link-to-product-action.php?id=<?= htmlspecialchars($producto['id']); ?>">Go somewhere</a>
+                                <a class="btn btn-primary mt-3" href="link-to-product-action.php?id=<?= htmlspecialchars($producto['id']); ?>">Go somewhere</a>
                             </div>
                         </div>
 
                     </div>
-                </div>
-
-                <div class="card p-2 m-3">
-                    <h3>Historias de busqueda</h3>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">First</th>
-                                <th scope="col">Last</th>
-                                <th scope="col">Handle</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>@fat</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td colspan="2">Larry the Bird</td>
-                                <td>@twitter</td>
-                            </tr>
-                        </tbody>
-                    </table>
                 </div>
 
             </div>

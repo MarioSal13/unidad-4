@@ -1,11 +1,14 @@
 <?php
-    session_start();
+session_start();
 
-    if (!isset($_SESSION['data'])) {
-        header("location: ../Actividad14/login.php");
-    }
 
-    include("getProductos.php");
+if (!isset($_SESSION['data'])) {
+    header("location: ../Actividad14/login.php");
+    exit;
+}
+
+include("getAllBrans.php");
+include("getProductos.php");
 ?>
 
 <!DOCTYPE html>
@@ -17,10 +20,10 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     <div class="d-flex">
+        <!-- Sidebar -->
         <div class="bg-dark text-white vh-100 p-3 d-none d-md-block position-fixed" style="width: 250px;">
             <h5>Sidebar</h5>
             <ul class="nav flex-column">
@@ -41,6 +44,8 @@
                 </li>
             </ul>
         </div>
+
+        <!-- Main content -->
         <div class="flex-grow-1" style="margin-left: 250px;">
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                 <div class="container-fluid">
@@ -98,17 +103,16 @@
                                         data-slug="<?php echo $tarjeta['slug']; ?>"
                                         data-description="<?php echo $tarjeta['description']; ?>"
                                         data-feature="<?php echo isset($tarjeta['features']) ? $tarjeta['features'] : ''; ?>"
+                                        data-brand="<?php echo $tarjeta['brand_id']; ?>"
                                         data-bs-toggle="modal"
                                         data-bs-target="#modalEditar">
                                         Editar
                                     </button>
-
                                     <button
                                         onclick="eliminar(<?php echo $tarjeta['id']; ?>)"
                                         class="btn btn-danger">
                                         Eliminar
                                     </button>
-
                                 </div>
                             </div>
                         </div>
@@ -146,6 +150,20 @@
                         </div>
 
                         <div class="mb-3">
+                            <label for="brand" class="form-label">Brand</label>
+                            <select class="form-select" id="brand" name="brand" required>
+                                <option value="" disabled selected>Select a brand</option>
+                                <?php
+                                if (isset($_SESSION['brands'])) {
+                                    foreach ($_SESSION['brands'] as $brand) {
+                                        echo '<option value="' . $brand['id'] . '">' . $brand['name'] . '</option>';
+                                    }
+                                }
+                                ?>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
                             <label for="image" class="form-label">Imagen del Producto</label>
                             <input type="file" class="form-control" id="image" name="image" required>
                         </div>
@@ -159,7 +177,7 @@
     </div>
 
     <!-- Modal para Editar Producto -->
-    <div class="modal fade" id="modalEditar" tabindex="-1" aria-labelledby="modalEditarLabel" aria-hidden="true" >
+    <div class="modal fade" id="modalEditar" tabindex="-1" aria-labelledby="modalEditarLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -185,26 +203,23 @@
                             <input type="text" class="form-control" id="featureEditar" name="featureEditar" required>
                         </div>
 
+                        <div class="mb-3">
+                            <label for="brandEditar" class="form-label">Brand</label>
+                            <select class="form-select" id="brandEditar" name="brandEditar" required>
+                                <option value="" disabled selected>Select a brand</option>
+                                <?php
+                                if (isset($_SESSION['brands'])) {
+                                    foreach ($_SESSION['brands'] as $brand) {
+                                        echo '<option value="' . $brand['id'] . '">' . $brand['name'] . '</option>';
+                                    }
+                                }
+                                ?>
+                            </select>
+                        </div>
+
                         <input type="hidden" id="productId" name="productId">
                         <input type="hidden" name="action" value="update">
-
                         <button type="submit" class="btn btn-primary">Actualizar</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-        <!-- Modal para eliminar Producto -->
-        <div class="modal fade" id="modalAgregar" tabindex="-1" aria-labelledby="modalAgregarLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <form id="formEliminar" method="POST" action="productController.php">
-
-                        <input type="hidden" id="eliminarProductId" name="eliminarProductId">
-                        <input type="hidden" name="action" value="delete">
-
                     </form>
                 </div>
             </div>
@@ -222,39 +237,35 @@
                     const slug = btn.getAttribute('data-slug');
                     const description = btn.getAttribute('data-description');
                     const feature = btn.getAttribute('data-feature');
-
+                    const brand = btn.getAttribute('data-brand');
 
                     document.getElementById('productId').value = id;
                     document.getElementById('nameEditar').value = name;
                     document.getElementById('slugEditar').value = slug;
                     document.getElementById('descriptionEditar').value = description;
                     document.getElementById('featureEditar').value = feature;
+                    document.getElementById('brandEditar').value = brand;
                 });
             });
         });
-    </script>
-
-    <script>
 
         function eliminar(id){
             swal({
                 title: "Are you sure?",
-                text: "Once deleted, you will not be able to recover this imaginary file!",
+                text: "Once deleted, you will not be able to recover this product!",
                 icon: "warning",
                 buttons: true,
                 dangerMode: true,
                 })
                 .then((willDelete) => {
                 if (willDelete) {
-
                     document.getElementById('eliminarProductId').value = id;
                     document.getElementById('formEliminar').submit();
-
-                    swal("Poof! Your imaginary file has been deleted!", {
+                    swal("Poof! Your product has been deleted!", {
                     icon: "success",
                     });
                 }
-                });
+            });
         }
     </script>
 
