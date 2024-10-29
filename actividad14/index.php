@@ -127,7 +127,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="formAgregar" method="POST" action="productController.php">
+                    <form id="formAgregar" method="POST" action="productController.php" enctype="multipart/form-data">
                         <div class="mb-3">
                             <label for="nameProduct" class="form-label">Nombre del Producto</label>
                             <input type="text" class="form-control" id="nameProduct" name="nameProduct" required>
@@ -145,6 +145,11 @@
                             <input type="text" class="form-control" id="feature" name="feature" required>
                         </div>
 
+                        <div class="mb-3">
+                            <label for="image" class="form-label">Imagen del Producto</label>
+                            <input type="file" class="form-control" id="image" name="image" required>
+                        </div>
+
                         <input type="hidden" name="action" value="add">
                         <button type="submit" class="btn btn-primary">Guardar</button>
                     </form>
@@ -154,7 +159,7 @@
     </div>
 
     <!-- Modal para Editar Producto -->
-    <div class="modal fade" id="modalEditar" tabindex="-1" aria-labelledby="modalEditarLabel" aria-hidden="true">
+    <div class="modal fade" id="modalEditar" tabindex="-1" aria-labelledby="modalEditarLabel" aria-hidden="true" >
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -241,7 +246,7 @@
                 })
                 .then((willDelete) => {
                 if (willDelete) {
-                    
+
                     document.getElementById('eliminarProductId').value = id;
                     document.getElementById('formEliminar').submit();
 
