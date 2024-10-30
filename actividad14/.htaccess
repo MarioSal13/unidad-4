@@ -1,0 +1,21 @@
+# Activar reescritura de URLs
+RewriteEngine On
+
+# Enmascarar URLs para acceder a los archivos PHP de manera más amigable
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+RewriteBase /Unidad-4R/unidad-4/actividad14/
+
+# Reglas de reescritura para rutas específicas
+RewriteRule ^producto/([0-9]+)/?$ detalleProducto.php?id=$1 [L,QSA]
+RewriteRule ^marca/todas/?$ getAllBrans.php [L,QSA]
+RewriteRule ^productos/?$ getProductos.php [L,QSA]
+RewriteRule ^producto/slug/([a-zA-Z0-9_-]+)/?$ getProductSlug.php?slug=$1 [L,QSA]
+RewriteRule ^login/?$ login.php [L,QSA]
+RewriteRule ^logout/?$ logOut.php [L,QSA]
+RewriteRule ^control/?$ logControl.php [L,QSA]
+RewriteRule ^control/producto/?$ productController.php [L,QSA]
+RewriteRule ^inicio/?$ index.php [L,QSA]
+
+

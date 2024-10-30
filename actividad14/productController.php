@@ -92,9 +92,9 @@ class ProductController
         curl_close($curl);
 
         if ($response) {
-            header("location: index.php?status=ok");
+            header("location: /Unidad-4R/unidad-4/actividad14/inicio?status=ok");
         } else {
-            header("location: index.php?status=error");
+            header("location: /Unidad-4R/unidad-4/actividad14/inicio?status=error");
         }
     }
 
@@ -138,9 +138,9 @@ class ProductController
         curl_close($curl);
 
         if ($response) {
-            header("location: index.php?status=ok");
+            header("location: /Unidad-4R/unidad-4/actividad14/inicio?status=ok");
         } else {
-            header("location: index.php?status=error");
+            header("location: /Unidad-4R/unidad-4/actividad14/inicio?status=error");
         }
     }
 
@@ -173,9 +173,9 @@ class ProductController
         curl_close($curl);
 
         if ($response) {
-            header("location: index.php?status=ok");
+            header("location: /Unidad-4R/unidad-4/actividad14/inicio?status=ok");
         } else {
-            header("location: index.php?status=error");
+            header("location: /Unidad-4R/unidad-4/actividad14/inicio?status=error");
         }
     }
 }

@@ -36,9 +36,11 @@ if (isset($_GET['slug'])) {
 
         if (isset($response['data'])) {
             $producto = $response['data'];
-            
+
             $_SESSION['producto'] = $producto;
-            header("location: detalleproducto.php");
+
+            $product_id = $producto['id'];
+            header("location: /Unidad-4R/unidad-4/actividad14/producto/$product_id");
             exit; 
         } else {
             echo "No se encontraron datos del producto.";

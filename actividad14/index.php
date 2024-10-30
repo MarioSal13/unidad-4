@@ -1,9 +1,8 @@
 <?php
 session_start();
 
-
 if (!isset($_SESSION['data'])) {
-    header("location: ../Actividad14/login.php");
+    header("location: /Unidad-4R/unidad-4/actividad14/login");
     exit;
 }
 
@@ -28,19 +27,19 @@ include("getProductos.php");
             <h5>Sidebar</h5>
             <ul class="nav flex-column">
                 <li class="nav-item">
-                    <a class="nav-link active text-white">Home</a>
+                    <a class="nav-link active text-white" href="/Unidad-4R/unidad-4/actividad14/inicio">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white">Dashboard</a>
+                    <a class="nav-link text-white" href="#">Dashboard</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white">Orders</a>
+                    <a class="nav-link text-white" href="#">Orders</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white">Products</a>
+                    <a class="nav-link text-white" href="#">Products</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white">Customers</a>
+                    <a class="nav-link text-white" href="#">Customers</a>
                 </li>
             </ul>
         </div>
@@ -49,17 +48,17 @@ include("getProductos.php");
         <div class="flex-grow-1" style="margin-left: 250px;">
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                 <div class="container-fluid">
-                    <a class="navbar-brand">Navbar scroll</a>
+                    <a class="navbar-brand" href="/Unidad-4R/unidad-4/actividad14/inicio">Navbar scroll</a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="/Actividad14/index.php">Home</a>
+                                <a class="nav-link active" aria-current="page" href="/Unidad-4R/unidad-4/actividad14/inicio">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link">Ejemplo</a>
+                                <a class="nav-link" href="#">Ejemplo</a>
                             </li>
                         </ul>
                         <form class="d-flex" role="search">
@@ -74,7 +73,7 @@ include("getProductos.php");
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
                                 <li><a class="dropdown-item">Profile</a></li>
                                 <li><a class="dropdown-item">Settings</a></li>
-                                <li><a class="dropdown-item" href="../Actividad14/logOut.php">Logout</a></li>
+                                <li><a class="dropdown-item" href="/Unidad-4R/unidad-4/actividad14/logout">Logout</a></li>
                             </ul>
                         </div>
                     </div>
@@ -94,7 +93,7 @@ include("getProductos.php");
                             <div class="card-body">
                                 <h5 class="card-title"><?php echo $tarjeta['name']; ?></h5>
                                 <p class="card-text"><?php echo $tarjeta['description']; ?></p>
-                                <a href="/unidad-4/actividad14/getProductSlug.php?slug=<?php echo $tarjeta['slug']; ?>" class="btn btn-primary mb-2">Go somewhere</a>
+                                <a href="/Unidad-4R/unidad-4/actividad14/producto/slug/<?php echo $tarjeta['slug']; ?>" class="btn btn-primary mb-2">Go somewhere</a>
                                 <div class="d-flex justify-content-between">
                                     <button
                                         class="btn btn-warning btn-editar"
@@ -131,7 +130,7 @@ include("getProductos.php");
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="formAgregar" method="POST" action="productController.php" enctype="multipart/form-data">
+                    <form id="formAgregar" method="POST" action="/Unidad-4R/unidad-4/actividad14/control/producto" enctype="multipart/form-data">
                         <div class="mb-3">
                             <label for="nameProduct" class="form-label">Nombre del Producto</label>
                             <input type="text" class="form-control" id="nameProduct" name="nameProduct" required>
@@ -185,7 +184,7 @@ include("getProductos.php");
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="formEditar" method="POST" action="productController.php">
+                    <form id="formEditar" method="POST" action="/Unidad-4R/unidad-4/actividad14/control/producto">
                         <div class="mb-3">
                             <label for="nameEditar" class="form-label">Nombre del Producto</label>
                             <input type="text" class="form-control" id="nameEditar" name="nameEditar" required>
@@ -249,20 +248,20 @@ include("getProductos.php");
             });
         });
 
-        function eliminar(id){
+        function eliminar(id) {
             swal({
                 title: "Are you sure?",
                 text: "Once deleted, you will not be able to recover this product!",
                 icon: "warning",
                 buttons: true,
                 dangerMode: true,
-                })
-                .then((willDelete) => {
+            })
+            .then((willDelete) => {
                 if (willDelete) {
                     document.getElementById('eliminarProductId').value = id;
                     document.getElementById('formEliminar').submit();
                     swal("Poof! Your product has been deleted!", {
-                    icon: "success",
+                        icon: "success",
                     });
                 }
             });
